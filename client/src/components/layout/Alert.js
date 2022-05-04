@@ -18,16 +18,16 @@ const Alert = ({ alerts }) => {
 
 Alert.propTypes = {
   alerts: PropTypes.array.isRequired,
-  msg: PropTypes.string.isRequired,
-  alertType: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  // msg: PropTypes.string.isRequired,
+  // alertType: PropTypes.string.isRequired,
+  // id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
-  msg: state.alert.msg,
-  alertType: state.alert.alertType,
-  id: state.alert.id,
+  // msg: state.alert.msg,
+  // alertType: state.alert.alertType,
+  // id: state.alert.id,
 });
 
 export default connect(mapStateToProps)(Alert);

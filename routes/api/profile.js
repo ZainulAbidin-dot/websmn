@@ -14,10 +14,8 @@ router.get("/test", (req, res) => res.send("Profile route ..."));
 // To get user  Profile
 router.get("/me", auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
-      "user",
-      ["name", "avatar"]
-    );
+    const profile = await Profile.findById(req.user.id);
+    console.log(req.user.id);
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });

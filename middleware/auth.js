@@ -6,11 +6,12 @@ module.exports = function (req, res, next) {
 
   if (!token) res.status(401).json({ msg: "No Token ..." });
 
-  try {
-    const decoded = jwt.verify(token, config.get("jwtSecret"));
-    req.user = decoded.user;
-    next();
-  } catch (err) {
-    res.status(401).json({ msg: "Token is not Valid ..." });
-  }
+  jwt.verify(token, config.get("jwtSecret"), (error, decoded) => {
+    if (error) {
+      return res.sendStatus(401);
+    } else {
+      req.user = decoded.user;
+      next();
+    }
+  });
 };

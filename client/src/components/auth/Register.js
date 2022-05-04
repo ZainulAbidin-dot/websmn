@@ -1,13 +1,13 @@
 import React, { useState, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
-// import { registerUser } from "../../actions/auth";
-// import axios from "axios";
+import axios from "axios";
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,28 +23,32 @@ const Register = ({ setAlert, register }) => {
       setAlert("Passwords do not match", "danger");
     } else {
       register({ name, email, password });
-      // const newUser = {
-      //   name,
-      //   email,
-      //   password,
-      // };
-      // try {
-      //   const config = {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   };
+      const newUser = {
+        name,
+        email,
+        password,
+      };
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
 
-      //   const body = JSON.stringify(newUser);
-      //   console.log("first try");
-      //   const res = await axios.post("/api/users", body, config);
-      //   console.log("second try");
-      //   console.log(res.data);
-      // } catch (err) {
-      //   console.log("first catch");
-      //   console.error(err.response.data);
-      // }
-      console.log("SUCCESS");
+        const body = JSON.stringify(newUser);
+        console.log("first try");
+        const res = await axios.post("/api/users", body, config);
+        console.log("second try");
+        console.log(res.data);
+      } catch (err) {
+        console.log("first catch");
+        console.error(err.response.data.errors[0].msg);
+        setAlert(err.response.data.errors[0].msg, "danger");
+      }
+    }
+
+    if (isAuthenticated) {
+      navigate("/dashboard");
     }
   };
 
@@ -110,6 +114,11 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
