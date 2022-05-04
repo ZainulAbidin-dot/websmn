@@ -8,16 +8,18 @@ const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 
+// @route    POST api/users
+// @desc     Register user
+// @access   Public
+
 router.post(
   "/",
-  [
-    check("name", "Name is required").not().isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
-  ],
+  check("name", "Name is required").not().isEmpty(),
+  check("email", "Please include a valid email").isEmail(),
+  check(
+    "password",
+    "Please enter a password with 6 or more characters"
+  ).isLength({ min: 6 }),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -48,6 +50,8 @@ router.post(
       user.password = await bycrypt.hash(password, salt);
 
       await user.save();
+
+      console.log('routes/api/users.js', user);
 
       const payload = {
         user: {

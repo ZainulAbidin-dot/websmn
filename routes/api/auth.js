@@ -39,6 +39,8 @@ router.post(
     try {
       let user = await User.findOne({ email });
 
+      console.log('routes/api/auth.js', user);
+
       if (!user) {
         return res
           .status(400)
@@ -47,13 +49,13 @@ router.post(
 
       // Have to Fix this
 
-      // const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
-      // if (!isMatch) {
-      //   return res
-      //     .status(400)
-      //     .json({ errors: [{ msg: "Invalid Credentials 2" }] });
-      // }
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Invalid Credentials 2" }] });
+      }
 
       const payload = {
         user: {

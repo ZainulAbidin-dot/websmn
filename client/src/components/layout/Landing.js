@@ -1,7 +1,13 @@
-import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
+  if (isAuthenticated) {
+    return navigate("/dashboard");
+  }
+
   return (
     <div>
       <section className="landing">
@@ -27,4 +33,8 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);

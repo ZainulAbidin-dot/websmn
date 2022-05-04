@@ -15,13 +15,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
       <li>
         <Link to="/dashboard">
-          <i className="fas fa-user"></i>{" "}
+          <i className="fas fa-user" title="Dashboard"></i>{" "}
           <span className="hide-sm">Dashboard</span>
         </Link>
       </li>
       <li>
         <a onClick={logout} href="#!">
-          <i className="fas fa-sign-out-alt"></i>{" "}
+          <i className="fas fa-sign-out-alt" title="Logout"></i>{" "}
           <span className="hide-sm">Logout</span>
         </a>
       </li>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
-import axios from "axios";
+import axios from "../../axios";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const navigate = useNavigate();
@@ -23,28 +23,25 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       setAlert("Passwords do not match", "danger");
     } else {
       register({ name, email, password });
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
+      // const newUser = {
+      //   name,
+      //   email,
+      //   password,
+      // };
+      // try {
+      //   const config = {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   };
 
-        const body = JSON.stringify(newUser);
-        console.log("first try");
-        const res = await axios.post("/api/users", body, config);
-        console.log("second try");
-        console.log(res.data);
-      } catch (err) {
-        console.log("first catch");
-        console.error(err.response.data.errors[0].msg);
-        setAlert(err.response.data.errors[0].msg, "danger");
-      }
+      //   const body = JSON.stringify(newUser);
+      //   const res = await axios.post("/api/users", body, config);
+      //   console.log(res.data);
+      // } catch (err) {
+      //   console.error(err.response.data.errors[0].msg);
+      //   setAlert(err.response.data.errors[0].msg, "danger");
+      // }
     }
 
     if (isAuthenticated) {

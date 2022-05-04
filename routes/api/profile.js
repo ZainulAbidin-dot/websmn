@@ -14,8 +14,12 @@ router.get("/test", (req, res) => res.send("Profile route ..."));
 // To get user  Profile
 router.get("/me", auth, async (req, res) => {
   try {
-    const profile = await Profile.findById(req.user.id);
-    console.log(req.user.id);
+    const profile = await Profile.findOne({
+      user: req.user.id
+    }).exec();
+    ;
+    console.log('routes/api/profile.js', 'req', req.user);
+    console.log('routes/api/profile.js', 'res', profile);
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
@@ -54,6 +58,10 @@ router.post(
       instagram,
       linkedin,
     } = req.body;
+    console.log(req.body);
+    // if (status === undefined || skills === undefined) {
+    //   res.status(400).json({ errors: "skills and status are required" });
+    // }
 
     const profiles = {};
     profiles.user = req.user.id;
@@ -82,20 +90,19 @@ router.post(
           { $set: profiles },
           { new: true }
         );
-        return res.json(profile);
+        // return res.json(profile);
+        return res.json({ msg: "Profile Updated", data: profile });
       }
 
       // Create
       profile = new Profile(profiles);
       await profile.save();
-      res.json(profile);
+      // res.json(profile);
+      res.json({ msg: "Profile Created", data: profile });
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Server Error");
     }
-
-    console.log(profiles.skills);
-    res.json({ msg: "Profile Updated" });
   }
 );
 

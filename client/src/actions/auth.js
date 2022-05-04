@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios";
 import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,
@@ -31,7 +31,7 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = (name, email, password) => async (dispatch) => {
+export const register = ({ name, email, password }) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
