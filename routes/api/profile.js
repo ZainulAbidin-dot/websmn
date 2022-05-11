@@ -7,6 +7,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 // To Test Route
 router.get("/test", (req, res) => res.send("Profile route ..."));
@@ -15,11 +16,10 @@ router.get("/test", (req, res) => res.send("Profile route ..."));
 router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id
+      user: req.user.id,
     }).exec();
-    ;
-    console.log('routes/api/profile.js', 'req', req.user);
-    console.log('routes/api/profile.js', 'res', profile);
+    console.log("routes/api/profile.js", "req", req.user);
+    console.log("routes/api/profile.js", "res", profile);
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
@@ -140,6 +140,9 @@ router.get("/user/:user_id", async (req, res) => {
 // To delete profile
 router.delete("/", auth, async (req, res) => {
   try {
+    // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
+
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove user

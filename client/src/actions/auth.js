@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_PROFILE,
 } from "../actions/types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -31,34 +32,36 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+export const register =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-  const body = JSON.stringify({ name, email, password });
+    const body = JSON.stringify({ name, email, password });
 
-  try {
-    const res = await axios.post("/api/users", body, config);
+    try {
+      const res = await axios.post("/api/users", body, config);
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      }
+
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
     }
-
-    dispatch({
-      type: REGISTER_FAIL,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
+  };
 
 // Login User
 export const login = (email, password) => async (dispatch) => {
@@ -92,6 +95,8 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+//  Logout / Clear Profile
 export const logout = () => (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };
