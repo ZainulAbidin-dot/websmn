@@ -18,8 +18,6 @@ router.get("/me", auth, async (req, res) => {
     const profile = await Profile.findOne({
       user: req.user.id,
     }).exec();
-    console.log("routes/api/profile.js", "req", req.user);
-    console.log("routes/api/profile.js", "res", profile);
 
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
@@ -267,6 +265,7 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 
 // For getting github repos
 router.get("/github/:username", (req, res) => {
+  console.log(req.params.username);
   try {
     const options = {
       uri: encodeURI(
@@ -278,9 +277,12 @@ router.get("/github/:username", (req, res) => {
         Authorization: `token ${config.get("githubToken")}`,
       },
     };
+    console.log(req.params.username);
     request(options, (error, response, body) => {
       if (error) console.error(error);
       if (response.statusCode !== 200) {
+        console.log(response.statusCode);
+        console.log(response.data);
         return res.status(404).json({ msg: "No Github profile found" });
       }
       res.json(JSON.parse(body));

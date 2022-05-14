@@ -8,10 +8,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to="/profiles">Developers</Link>
+        <Link to="/profiles">
+          <i className="fas fa-users" title="Posts"></i> Developers
+        </Link>
       </li>
       <li>
-        <Link to="/posts">Posts</Link>
+        <Link to="/posts">
+          <i className="fas fa-file" title="Posts"></i> Posts
+        </Link>
       </li>
       <li>
         <Link to="/dashboard">
@@ -46,7 +50,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <div>
       <nav className="navbar bg-dark">
         <h1>
-          <Link to="/">
+          <Link to="/dashboard">
             <i className="fas fa-code"></i> DevConnector
           </Link>
         </h1>

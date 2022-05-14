@@ -8,23 +8,23 @@ import Moment from "react-moment";
 const Experience = ({ experience, deleteExperience }) => {
   console.log("first");
   console.log(experience);
-  const experiences = experience.map((exp) => (
-    <tr key={exp._id}>
-      <td>{exp.company}</td>
-      <td className="hide-sm">{exp.title}</td>
-      <td>
-        {/* <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{" "} */}
-        {/* {exp.to ? <Moment format="YYYY/MM/DD">{exp.to}</Moment> : "Now"} */}
-      </td>
-      <td>
-        <button
-          onClick={() => deleteExperience(exp._id)}
-          className="btn btn-danger">
-          Delete
-        </button>
-      </td>
-    </tr>
-  ));
+  // const experiences = experience.map((exp) => (
+  //   <tr key={exp._id}>
+  //     <td>{exp.company}</td>
+  //     <td className="hide-sm">{exp.title}</td>
+  //     <td>
+  //       {/* <Moment format="YYYY/MM/DD">{exp.from}</Moment> -{" "} */}
+  //       {/* {exp.to ? <Moment format="YYYY/MM/DD">{exp.to}</Moment> : "Now"} */}
+  //     </td>
+  //     <td>
+  //       <button
+  //         onClick={() => deleteExperience(exp._id)}
+  //         className="btn btn-danger">
+  //         Delete
+  //       </button>
+  //     </td>
+  //   </tr>
+  // ));
 
   return (
     <Fragment>
@@ -38,7 +38,8 @@ const Experience = ({ experience, deleteExperience }) => {
             <th />
           </tr>
         </thead>
-        <tbody>{experiences}</tbody>
+        {/* <tbody>{experiences}</tbody> */}
+        <tbody>CaR</tbody>
       </table>
     </Fragment>
   );

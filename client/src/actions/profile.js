@@ -11,17 +11,16 @@ import {
   ACCOUNT_DELETED,
 } from "../actions/types";
 
-// GET_CURRENT_PROFILE
+// Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/profile/me");
-    console.log(res);
+
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -69,6 +68,7 @@ export const getProfileById = (userId) => async (dispatch) => {
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
+    console.log(res.data);
     dispatch({
       type: GET_REPOS,
       payload: res.data,

@@ -39,7 +39,7 @@ router.post(
     try {
       let user = await User.findOne({ email });
 
-      console.log('routes/api/auth.js', user);
+      // console.log('routes/api/auth.js', user);
 
       if (!user) {
         return res
