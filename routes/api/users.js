@@ -51,7 +51,7 @@ router.post(
 
       await user.save();
 
-      console.log('routes/api/users.js', user);
+      // console.log('routes/api/users.js', user);
 
       const payload = {
         user: {

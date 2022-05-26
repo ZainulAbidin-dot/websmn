@@ -17,7 +17,7 @@ export const getPosts = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/posts");
 
-    console.log(res.data);
+    // console.log(res.data);
     dispatch({
       type: GET_POSTS,
       payload: res.data,

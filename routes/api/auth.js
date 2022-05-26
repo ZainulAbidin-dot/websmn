@@ -39,8 +39,6 @@ router.post(
     try {
       let user = await User.findOne({ email });
 
-      // console.log('routes/api/auth.js', user);
-
       if (!user) {
         return res
           .status(400)
@@ -66,7 +64,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: "5 days" },
+        { expiresIn: "30 days" },
         (err, token) => {
           if (err) throw err;
           res.json({ token });

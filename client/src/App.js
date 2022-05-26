@@ -17,6 +17,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import { LOGOUT } from "./actions/types";
 import EditProfile from "./components/profile-forms/EditProfile";
 import CreateProfile from "./components/profile-forms/CreateProfile";
+import Extra from "./components/Extra";
 
 // Redux
 import { Provider } from "react-redux";
@@ -47,56 +48,17 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Alert />
         <section className="container">
-          <Routes>
-            <Route path="/">
-              <Route index element={<Landing />} />
-              <Route path="register" element={<Register />} />
-              <Route path="login" element={<Login />} />
-              <Route path="profiles" element={<Profiles />} />
-              <Route path="profile/:id" element={<Profile />} />
-              <Route
-                path="dashboard"
-                element={<PrivateRoute component={Dashboard} />}
-              />
-              <Route
-                path="create-profile"
-                element={<PrivateRoute component={CreateProfile} />}
-              />
-              <Route
-                path="edit-profile"
-                element={<PrivateRoute component={EditProfile} />}
-              />
-              <Route
-                path="add-experience"
-                element={<PrivateRoute component={AddExperience} />}
-              />
-              <Route
-                path="add-education"
-                element={<PrivateRoute component={AddEducation} />}
-              />
-              <Route
-                path="posts"
-                element={<PrivateRoute component={Posts} />}
-              />
-              <Route
-                path="posts/:id"
-                element={<PrivateRoute component={Post} />}
-              />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
+          <Alert />
         </section>
-        {/* <Routes>
-          <Route path="/" element={<Landing />} />
-        </Routes>
-        <section className="container">
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profiles" element={<Profiles />} />
-            <Route path="/profile/:id" element={<Profile />} />
+        <Routes>
+          <Route path="/">
+            <Route index element={<Landing />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="extra" element={<Extra />} />
+            <Route path="profiles" element={<Profiles />} />
+            <Route path="profile/:id" element={<Profile />} />
             <Route
               path="dashboard"
               element={<PrivateRoute component={Dashboard} />}
@@ -122,9 +84,9 @@ const App = () => {
               path="posts/:id"
               element={<PrivateRoute component={Post} />}
             />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </section> */}
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </Router>
     </Provider>
   );
