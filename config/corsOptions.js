@@ -1,6 +1,7 @@
 const allowedOrigins = [
-  'http://localhost:3000',
-  'http://127.0.0.1:5500',
+  "http://localhost:3000",
+  "http://127.0.0.1:5500",
+  "https://smnbackend.herokuapp.com",
 ];
 
 const corsOptions = {
@@ -8,10 +9,10 @@ const corsOptions = {
     if (allowedOrigins.includes(reqOrigin) || !reqOrigin) {
       callback(null, true);
     } else {
-      callback(new Error('Not Allowed by CORS'));
+      callback(new Error("Not Allowed by CORS"));
     }
   },
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 module.exports = corsOptions;
